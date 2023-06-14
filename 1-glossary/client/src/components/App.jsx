@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import Loading from './Loading.jsx';
+import Word from './Word.jsx';
 
 function getGlossary() {
   return axios({
@@ -25,11 +26,23 @@ export default function App() {
   function fetchWords() {
     getGlossary()
       .then(({ data }) => {
-        setTimeout(() => {
-          setWords(data);
-          setLoading(false);
-        }, 3000)
+        setWords(data);
+        setWords(data);
       })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+  }
+
+  function handleDelete(item) {
+
+  }
+
+  function handleEdit(item) {
+
   }
 
   function handleSubmit(e) {
@@ -38,6 +51,7 @@ export default function App() {
     createWord(word, definition)
       .then(fetchWords)
   }
+
 
   React.useEffect(() => {
     fetchWords()
@@ -55,10 +69,12 @@ export default function App() {
       {words.length && (
         <div className="words-list">
           {words.map((item) => (
-            <div className="word" key={item.word}>
-              <h5>{item.word}</h5>
-              <p>{item.definition}</p>
-            </div>
+            <Word
+              key={item.word}
+              word={item}
+              onEdit={handleEdit}
+              onDelete={handleDelete}
+            />
           ))}
         </div>
       )}
