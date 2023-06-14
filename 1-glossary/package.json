@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "server/index.js",
   "scripts": {
+    "load-sample-data": "node sampleData.js",
     "server-dev": "npx nodemon --watch server server/index.js",
     "client-dev": "npx webpack --watch",
     "build": "npx webpack",
