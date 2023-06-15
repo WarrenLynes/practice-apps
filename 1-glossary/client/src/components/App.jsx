@@ -75,7 +75,7 @@ export default function App() {
       .then(() => {
         setWord('');
         setDefinition('');
-        return fetchWords;
+        return fetchWords();
       })
       .catch((err) => {
         setLoading(false);
