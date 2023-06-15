@@ -9,8 +9,8 @@ export default function Word({ word, onEdit, onDelete }) {
         <p>{word.definition}</p>
       </div>
       <div className="actions">
-        <button className="btn btn-edit"> edit </button>
-        <button className="btn btn-delete"> delete </button>
+        <button className="btn btn-edit" onClick={onEdit}> edit </button>
+        <button className="btn btn-delete" onClick={onDelete}> delete </button>
       </div>
     </div>
   );

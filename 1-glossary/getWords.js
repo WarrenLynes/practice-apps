@@ -1,8 +1,6 @@
-// const { getWords } = require('./getWords.js');
-// const fs = require('fs');
-db = connect('mongodb://localhost/glossary');
+const fs = require('fs');
 
-const getWords = function () {
+module.exports.getWords = function () {
   return new Promise((res, rej) => {
     fs.readFile('/usr/share/dict/words', 'utf8', (err, data) => {
       data = data.split('\n');
@@ -11,9 +9,7 @@ const getWords = function () {
       for (var x = 0; x < 100; x++) {
         const word = {
           word: '',
-          definition: '',
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
+          definition: 'definition',
         }
 
         word.word = data[Math.floor(Math.random() * data.length - 1)];
@@ -22,16 +18,9 @@ const getWords = function () {
           word.definition += data[Math.floor(Math.random() * data.length - 1)] + ' ';
         }
 
-        // words.push(word)
-        db.words.insert(word);
+        words.push(word)
       }
       res(words);
     });
   });
 }
-
-getWords()
-  .then((words) => {
-    console.log(words);
-    // db.words.insertMany(words)
-  });

@@ -18,8 +18,22 @@ module.exports.wordRoutes = function (db) {
   });
 
   router.get('/', async function (req, res) {
-    const words = await db.Words.find().sort('-updatedAt').exec();
-    res.send(words);
+    let query = {};
+    let page = Number(req.query.skip) || 0;
+
+    if (req.query.q)
+      query = { word: new RegExp(req.query.q, 'i') };
+
+    const data = await db.Words
+      .find(query)
+      .sort('-createdAt')
+      .skip(page)
+      .limit(10)
+      .exec();
+
+    const total = await db.Words.count();
+
+    res.send({ page, total, data })
   });
 
   router.put('/:id', async function (req, res) {
