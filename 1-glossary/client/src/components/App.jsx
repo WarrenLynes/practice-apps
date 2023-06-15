@@ -40,8 +40,13 @@ export default function App() {
       })
   }
 
-  function handleDelete(item) {
-
+  function handleDelete(id) {
+    axios({
+      url: '/words/' + id,
+      method: 'delete'
+    }).then(() => {
+      fetchWords();
+    })
   }
 
   function handleEdit(item) {
@@ -91,8 +96,8 @@ export default function App() {
     <div className="container">
       {loading && <Loading />}
       <form onSubmit={handleSubmit}>
-        <input type="text" value={word} onChange={(e) => setWord(e.target.value)} />
-        <input type="text" value={definition} onChange={(e) => setDefinition(e.target.value)} />
+        <input placeholder="WORD" type="text" value={word} onChange={(e) => setWord(e.target.value)} />
+        <input placeholder="DEFINITION" type="text" value={definition} onChange={(e) => setDefinition(e.target.value)} />
         <button type="submit">GO</button>
       </form>
 
@@ -108,7 +113,7 @@ export default function App() {
               key={item.word}
               word={item}
               onEdit={() => setEditing(item)}
-              onDelete={handleDelete}
+              onDelete={() => handleDelete(item._id)}
             />
           ))}
         </div>
