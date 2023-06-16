@@ -87,6 +87,12 @@ export default function App() {
       })
   }
 
+  function handleLogout() {
+    axios({
+      url: '/authenticate/logout',
+      method: 'get'
+    }).finally(() => window.location.reload());
+  }
 
   React.useEffect(() => {
     fetchWords()
@@ -95,6 +101,8 @@ export default function App() {
   return (
     <div className="container">
       {loading && <Loading />}
+
+      <button onClick={handleLogout}> logout </button>
       <form onSubmit={handleSubmit}>
         <input placeholder="WORD" type="text" value={word} onChange={(e) => setWord(e.target.value)} />
         <input placeholder="DEFINITION" type="text" value={definition} onChange={(e) => setDefinition(e.target.value)} />

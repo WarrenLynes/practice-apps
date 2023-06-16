@@ -1,12 +1,12 @@
 const fs = require('fs');
 
-module.exports.getWords = function () {
+module.exports.getWords = function (num = 100) {
   return new Promise((res, rej) => {
     fs.readFile('/usr/share/dict/words', 'utf8', (err, data) => {
       data = data.split('\n');
       const words = [];
 
-      for (var x = 0; x < 100; x++) {
+      for (var x = 0; x < num; x++) {
         const word = {
           word: '',
           definition: 'definition',

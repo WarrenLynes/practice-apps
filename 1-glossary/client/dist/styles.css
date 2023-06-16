@@ -106,3 +106,12 @@ main {
   height: 200px;
   border: 1px solid;
 }
+
+.word .content {
+  overflow: hidden;
+}
+
+.content p {
+  white-space: normal;
+  text-overflow: ellipsis;
+}
